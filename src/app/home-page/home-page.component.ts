@@ -16,48 +16,52 @@ export class HomePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const sketch = (s: any) => {
-      s.setup = () => {
-        let canvas2 = s.createCanvas(s.windowWidth - 200, s.windowHeight - 200);
+    const sketch = (p: p5) => {
+      p.setup = () => {
+        let canvas2 = p.createCanvas(p.windowWidth - 200, p.windowHeight - 200);
         // creating a reference to the div here positions it so you can put things above and below
         // where the sketch is displayed
         canvas2.parent('sketch-holder');
 
-        s.background(255);
-        s.strokeWeight(this.sw);
+        p.background(33, 41, 51);
+        p.strokeWeight(this.sw);
 
-        this.c[0] = s.color(148,0,211);
-        this.c[1] = s.color(75,0,130);
-        this.c[2] = s.color(0,0,255);
-        this.c[3] = s.color(0,255,0);
-        this.c[4] = s.color(255,255,0);
-        this.c[5] = s.color(255,127,0);
-        this.c[6] = s.color(255,0,0);
+        this.c[0] = p.color(148,0,211);
+        this.c[1] = p.color(75,0,130);
+        this.c[2] = p.color(0,0,255);
+        this.c[3] = p.color(0,255,0);
+        this.c[4] = p.color(255,255,0);
+        this.c[5] = p.color(255,127,0);
+        this.c[6] = p.color(255,0,0);
 
-        s.rect(0, 0, s.width, s.height);
+        // Border color
+        p.stroke(0,255,170);
+        // Canvas fill color
+        p.fill(33, 41, 51);
+        p.rect(0, 0, p.width, p.height);
 
-        s.stroke(this.c[this.strokeColor]);
+        p.stroke(this.c[this.strokeColor]);
       };
 
-      s.draw = () => {
-        if (s.mouseIsPressed) {
-          if (s.mouseButton === s.LEFT) {
-            s.line(s.mouseX, s.mouseY, s.pmouseX, s.pmouseY);
-          } else if (s.mouseButton === s.CENTER) {
-            s.background(255);
+      p.draw = () => {
+        if (p.mouseIsPressed) {
+          if (p.mouseButton === p.LEFT) {
+            p.line(p.mouseX, p.mouseY, p.pmouseX, p.pmouseY);
+          } else if (p.mouseButton === p.CENTER) {
+            p.background(33, 41, 51);
           }
         }
       };
 
-      s.mouseReleased = () => {
+      p.mouseReleased = () => {
         // modulo math forces the color to swap through the array provided
         this.strokeColor = (this.strokeColor + 1) % this.c.length;
-        s.stroke(this.c[this.strokeColor]);
+        p.stroke(this.c[this.strokeColor]);
         console.log(`color is now ${this.c[this.strokeColor]}`);
       };
 
-      s.keyPressed = () => {
-        if (s.key === 'c') {
+      p.keyPressed = () => {
+        if (p.key === 'c') {
           window.location.reload();
         }
       };
