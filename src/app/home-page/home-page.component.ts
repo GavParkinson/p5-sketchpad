@@ -9,9 +9,6 @@ import * as p5 from 'p5';
 })
 export class HomePageComponent implements OnInit {
   canvas: any;
-  sw = 2;
-  c: any[] = [];
-  strokeColor = 0;
 
   constructor() { }
 
@@ -23,24 +20,25 @@ export class HomePageComponent implements OnInit {
         // where the sketch is displayed
         canvas2.parent('sketch-holder');
 
+        // Background color
         p.background(33, 41, 51);
-        p.strokeWeight(this.sw);
-
-        this.c[0] = p.color(148,0,211);
-        this.c[1] = p.color(75,0,130);
-        this.c[2] = p.color(0,0,255);
-        this.c[3] = p.color(0,255,0);
-        this.c[4] = p.color(255,255,0);
-        this.c[5] = p.color(255,127,0);
-        this.c[6] = p.color(255,0,0);
-
+        // Initial stroke weigth for border rect
+        p.strokeWeight(2);
         // Border color
         p.stroke(0,255,170);
         // Canvas fill color
         p.fill(33, 41, 51);
+        // Draw a border
         p.rect(0, 0, p.width, p.height);
 
-        p.stroke(this.c[this.strokeColor]);
+        // Set a random stroke color
+        let rVal = p.random(0, 256);
+        let gVal = p.random(0, 256);
+        let bVal = p.random(0, 256);
+        p.stroke(rVal, gVal, bVal);
+        // Set a random stroke weight
+        let sWeight = p.random(2,10);
+        p.strokeWeight(sWeight);
       };
 
       p.draw = () => {
@@ -54,10 +52,14 @@ export class HomePageComponent implements OnInit {
       };
 
       p.mouseReleased = () => {
-        // modulo math forces the color to swap through the array provided
-        this.strokeColor = (this.strokeColor + 1) % this.c.length;
-        p.stroke(this.c[this.strokeColor]);
-        console.log(`color is now ${this.c[this.strokeColor]}`);
+        // Change the stroke color to something random
+        let rVal = p.random(0, 256);
+        let gVal = p.random(0, 256);
+        let bVal = p.random(0, 256);
+        p.stroke(rVal, gVal, bVal);
+        // Set a random stroke weight
+        let sWeight = p.random(2,10);
+        p.strokeWeight(sWeight);
       };
 
       p.keyPressed = () => {
